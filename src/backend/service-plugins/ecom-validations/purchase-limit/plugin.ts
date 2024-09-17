@@ -1,22 +1,23 @@
-import { validations } from '@wix/ecom/service-plugins/context';
+import {validations,} from '@wix/ecom/service-plugins/context';
 
 validations.provideHandlers({
-  getValidationViolations: async ({ request, metadata }) => {
-  request.validationInfo.priceSummary.total.amount
-    return {
-      // Return your response exactly as documented to integrate with Wix Validations SPI:
-      // https://dev.wix.com/docs/sdk/backend-modules/ecom/service-plugins/validations/get-validation-violations
-      violations: [{
-        description:  {
-          value: "You must purchase at least 100 items.",
-        },
-        severity: "WARNING",
-        target: {
-          other: {
-            name: "OTHER_DEFAULT",
-          },
-        },
-      }]
-    };
-  },
+    // @ts-ignore
+    getValidationViolations: async ({request, metadata}) => {
+        const subtotal = 50 // parseInt(request.validationInfo.priceSummary.total.amount)
+        let violations = [];
+        let severity = validations.Severity.ERROR
+        let target: validations.Target = {
+            other: {
+                name: validations.NameInOther.OTHER_DEFAULT
+            }
+        }
+        let description = "You can't purchase a total amount that is lower than 100"
+        const violation = createViolation(severity, target, description);
+        violations.push(violation);
+        return {violations}
+    },
 })
+
+function createViolation(severity: validations.Severity, target: validations.Target, description: string): validations.Violation {
+    return {severity, target, description};
+}
