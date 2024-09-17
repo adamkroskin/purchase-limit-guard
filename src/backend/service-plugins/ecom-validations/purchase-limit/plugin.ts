@@ -10,7 +10,7 @@ validations.provideHandlers({
         const minSubtotal = await getMinSubtotal();
 
         if (subtotal < minSubtotal) {
-            let description = "You can't purchase a total amount that is lower than 100"
+            let description = `Your total purchase amount cannot be lower then ${minSubtotal}`;
             let severity = validations.Severity.ERROR
             let target: validations.Target = {
                 other: {
