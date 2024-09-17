@@ -29,6 +29,6 @@ export async function POST(req: Request) {
 
     return new Response('Success');
   } catch (error) {
-    return new Response('Error');
+    return error;
   };
 };
