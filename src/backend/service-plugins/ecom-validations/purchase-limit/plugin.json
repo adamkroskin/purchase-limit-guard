@@ -1,0 +1,6 @@
+{
+  "$schema": "https://dev.wix.com/wix-cli/schemas/ecom-validations.json",
+  "id": "bbe2687f-11d0-4064-bd9a-328811349d89",
+  "name": "purchase-limit",
+  "validateInCart": false
+}
