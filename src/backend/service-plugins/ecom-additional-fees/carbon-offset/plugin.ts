@@ -1,14 +1,14 @@
 import { auth } from '@wix/essentials';
 import { items } from '@wix/data';
 import { additionalFees } from '@wix/ecom/service-plugins/context';
-import { CHECKOUT_COLLECTION_ID, SETTINGS_COLLECTION_ID, DEFAULT_SETTING } from '../../../consts';
+import { PURCHASE_RULES_COLLECTION_ID, SETTINGS_COLLECTION_ID, DEFAULT_SETTING } from '../../../consts';
 import type { Settings } from '../../../../types';
 
 const getCheckoutDataFromCollection = async (purchaseFlowId: string) => {
   try {
     const { data } = await auth.elevate(items.getDataItem)(
       purchaseFlowId,
-      { dataCollectionId: CHECKOUT_COLLECTION_ID },
+      { dataCollectionId: PURCHASE_RULES_COLLECTION_ID },
     );
 
     return data;
