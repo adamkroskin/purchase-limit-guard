@@ -1,14 +1,14 @@
 import {getDataFromCollection, upsertDataToCollection} from '../../database';
 import {PURCHASE_RULES_COLLECTION_ID, DEFAULT_SETTING} from '../../consts';
-import type {Settings} from '../../../types';
+import type {PurchaseRules} from '../../../types';
 
 export async function GET(req: Request) {
     const settingsCollection = await getDataFromCollection({
         dataCollectionId: PURCHASE_RULES_COLLECTION_ID,
     });
 
-    const settingsData = settingsCollection.items[0]?.data as Settings;
-    const settings: Settings = {
+    const settingsData = settingsCollection.items[0]?.data as PurchaseRules;
+    const settings: PurchaseRules = {
         minSubtotal: settingsData?.minSubtotal,
         maxSubtotal: settingsData?.maxSubtotal,
         minTotalItems: settingsData?.minTotalItems,
@@ -19,7 +19,7 @@ export async function GET(req: Request) {
 };
 
 export async function POST(req: Request) {
-    const settingsData = await req.json() as Settings;
+    const settingsData = await req.json() as PurchaseRules;
 
     try {
         await upsertDataToCollection({

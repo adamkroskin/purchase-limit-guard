@@ -1,4 +1,4 @@
-export type Settings = {
+export type PurchaseRules = {
   minSubtotal?: number;
   maxSubtotal?: number;
   minTotalItems?: number;

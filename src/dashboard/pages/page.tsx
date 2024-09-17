@@ -12,17 +12,17 @@ import {
   NumberInput,
   WixDesignSystemProvider,
 } from '@wix/design-system';
-import type { Settings } from '../../types';
+import type { PurchaseRules } from '../../types';
 import '@wix/design-system/styles.global.css';
 import {Limit} from "../../components/limit";
 
 const Index: FC = () => {
-  const [settings, setSettings] = useState<Settings>()
+  const [settings, setSettings] = useState<PurchaseRules>()
 
   useEffect(() => {
     const fetchSettings = async () => {
       const res = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/settings`);
-      const data: Settings = (await res.json());
+      const data: PurchaseRules = (await res.json());
 
       setSettings(data);
     };
