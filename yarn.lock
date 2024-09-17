@@ -2088,28 +2088,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"carbon-offset-app@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "carbon-offset-app@workspace:."
-  dependencies:
-    "@types/react": "npm:^16.0.0"
-    "@types/react-dom": "npm:16"
-    "@wix/app-management": "npm:^1.0.30"
-    "@wix/cli": "https://cdn.dev.wixpress.com/@wix/cli/ef5235c7148a789298e564329075a91f73df7071c53697d70507abbb.tar.gz"
-    "@wix/cli-app": "https://cdn.dev.wixpress.com/@wix/cli-app/e7fb4e4ad15dee39ce4c24bdb8e4330c0c550d4d13e64e64b0690da8.tar.gz"
-    "@wix/dashboard": "npm:^1.3.21"
-    "@wix/data": "npm:^1.0.144"
-    "@wix/design-system": "npm:^1.0.0"
-    "@wix/ecom": "npm:^1.0.711"
-    "@wix/essentials": "npm:^0.1.5"
-    "@wix/wix-ui-icons-common": "npm:^3.0.0"
-    react: "npm:16.14.0"
-    react-dom: "npm:16"
-    react-to-webcomponent: "npm:^2.0.0"
-    typescript: "npm:^5.4.0"
-  languageName: unknown
-  linkType: soft
-
 "chart.js@npm:^2.9.4":
   version: 2.9.4
   resolution: "chart.js@npm:2.9.4"
@@ -4046,6 +4024,28 @@ __metadata:
   checksum: 10c0/59ece7ca2fb9838031d73a48d4becb9a7cc1ed10e610517c7d8f19a1e02fa47f7c27d557d8a5702bec3cfeccddc853579832b43f449e54635803f277b1c78077
   languageName: node
   linkType: hard
+
+"purchase-limit-guard-app@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "purchase-limit-guard-app@workspace:."
+  dependencies:
+    "@types/react": "npm:^16.0.0"
+    "@types/react-dom": "npm:16"
+    "@wix/app-management": "npm:^1.0.30"
+    "@wix/cli": "https://cdn.dev.wixpress.com/@wix/cli/ef5235c7148a789298e564329075a91f73df7071c53697d70507abbb.tar.gz"
+    "@wix/cli-app": "https://cdn.dev.wixpress.com/@wix/cli-app/e7fb4e4ad15dee39ce4c24bdb8e4330c0c550d4d13e64e64b0690da8.tar.gz"
+    "@wix/dashboard": "npm:^1.3.21"
+    "@wix/data": "npm:^1.0.144"
+    "@wix/design-system": "npm:^1.0.0"
+    "@wix/ecom": "npm:^1.0.711"
+    "@wix/essentials": "npm:^0.1.5"
+    "@wix/wix-ui-icons-common": "npm:^3.0.0"
+    react: "npm:16.14.0"
+    react-dom: "npm:16"
+    react-to-webcomponent: "npm:^2.0.0"
+    typescript: "npm:^5.4.0"
+  languageName: unknown
+  linkType: soft
 
 "querystring@npm:^0.2.1":
   version: 0.2.1

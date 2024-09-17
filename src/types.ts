@@ -1,3 +1,6 @@
 export type Settings = {
-  minSubtotal: number;
+  minSubtotal?: number;
+  maxSubtotal?: number;
+  minTotalItems?: number;
+  maxTotalItems?: number;
 };
