@@ -1,7 +1,7 @@
 import { auth } from '@wix/essentials';
 import { items } from '@wix/data';
 import { additionalFees } from '@wix/ecom/service-plugins/context';
-import { PURCHASE_RULES_COLLECTION_ID, SETTINGS_COLLECTION_ID, DEFAULT_SETTING } from '../../../consts';
+import { PURCHASE_RULES_COLLECTION_ID, DEFAULT_SETTING } from '../../../consts';
 import type { Settings } from '../../../../types';
 
 const getCheckoutDataFromCollection = async (purchaseFlowId: string) => {
@@ -19,7 +19,7 @@ const getCheckoutDataFromCollection = async (purchaseFlowId: string) => {
 
 const getSettingsDataFromCollection = async () => {
   return auth.elevate(items.queryDataItems)({
-    dataCollectionId: SETTINGS_COLLECTION_ID,
+    dataCollectionId: PURCHASE_RULES_COLLECTION_ID,
   }).find()
 };
 
@@ -37,7 +37,7 @@ additionalFees.provideHandlers({
         additionalFees: [{
           name: 'Carbon Offset',
           code: 'carbon-offset-fee',
-          price: `${settingsData.amount ?? DEFAULT_SETTING.amount}`,
+          price: `${3}`,
         }],
         currency: metadata.currency!,
       };

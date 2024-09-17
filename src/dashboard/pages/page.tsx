@@ -8,10 +8,9 @@ import {
   Layout,
   Loader,
   Page,
+  NumberInput,
   WixDesignSystemProvider,
 } from '@wix/design-system';
-import { PluginPreview } from '../../components/plugin-preview';
-import { SettingsForm } from '../../components/settings-form';
 import type { Settings } from '../../types';
 import '@wix/design-system/styles.global.css';
 
@@ -22,7 +21,7 @@ const Index: FC = () => {
     const fetchSettings = async () => {
       const res = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/settings`);
       const data: Settings = (await res.json());
-
+      console.log(data)
       setSettings(data);
     };
 
@@ -42,38 +41,37 @@ const Index: FC = () => {
       ) : (
         <Page height='100vh'>
           <Page.Header
-            title="Carbon Offset"
-            subtitle="Let your customers balance the carbon footprint of their order."
+            title="Purchase Limit Guard"
+            subtitle="Enforce minimum purchase limits on cart and checkout"
             actionsBar={
-              <Button onClick={() => console.log("button click")} />
+              <Button onClick={() => console.log("button click")} > Some Button </Button >
             }
           />
           <Page.Content>
             <Layout>
-              <Cell span={4}>
-                <Card stretchVertically>
-                  <Card.Header
-                    title="Settings"
-                    subtitle="This appears on your checkout page."
-                  />
-                  <Card.Divider />
-                  <Card.Content>
-                    <SettingsForm
-                      settings={settings}
-                      setSettings={setSettings}
-                    />
-                  </Card.Content>
-                </Card>
-              </Cell>
-              <Cell span={8}>
+              <Cell span={6}>
                 <Card>
                   <Card.Header
-                    title="Preview"
-                    subtitle="This is how your plugin will look like."
+                    title="Configure your minimun purchase limit"
                   />
                   <Card.Divider />
                   <Card.Content>
-                    <PluginPreview {...settings} />
+                    <Box>
+                      <NumberInput
+                          min={0}
+                          value={settings.minSubtotal}
+                          onChange={async amount => {
+                            setSettings({ minSubtotal: amount || 0 })
+                            const res = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/settings`, {
+                              method: 'POST',
+                              body: JSON.stringify({
+                                minSubtotal: amount,
+                              }),
+                            });
+                            console.log(res)
+                          }}
+                      />
+                    </Box>
                   </Card.Content>
                 </Card>
               </Cell>
