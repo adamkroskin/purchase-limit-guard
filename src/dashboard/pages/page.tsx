@@ -2,6 +2,7 @@ import React, { useEffect, useState, type FC } from 'react';
 import { httpClient } from '@wix/essentials';
 import {
   Box,
+  Button,
   Card,
   Cell,
   Layout,
@@ -9,7 +10,6 @@ import {
   Page,
   WixDesignSystemProvider,
 } from '@wix/design-system';
-import { MainButton } from '../../components/main-button';
 import { PluginPreview } from '../../components/plugin-preview';
 import { SettingsForm } from '../../components/settings-form';
 import type { Settings } from '../../types';
@@ -45,7 +45,7 @@ const Index: FC = () => {
             title="Carbon Offset"
             subtitle="Let your customers balance the carbon footprint of their order."
             actionsBar={
-              <MainButton {...settings} />
+              <Button onClick={() => console.log("button click")} />
             }
           />
           <Page.Content>
