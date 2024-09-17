@@ -2,7 +2,6 @@ import React, { useEffect, useState, type FC } from 'react';
 import { httpClient } from '@wix/essentials';
 import {
   Box,
-  Button,
   Card,
   Cell,
   Layout,
@@ -15,6 +14,7 @@ import {
 } from '@wix/design-system';
 import type { Settings } from '../../types';
 import '@wix/design-system/styles.global.css';
+import {Limit} from "../../components/limit";
 
 const Index: FC = () => {
   const [settings, setSettings] = useState<Settings>()
@@ -23,12 +23,24 @@ const Index: FC = () => {
     const fetchSettings = async () => {
       const res = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/settings`);
       const data: Settings = (await res.json());
-      console.log(data)
+
       setSettings(data);
     };
 
     fetchSettings();
   }, []);
+
+  const partiallyUpdateSettings = (partiallyUpdatedSettings: Partial<Settings>) => {
+      const updatedSettings = {
+          ...settings,
+          ...partiallyUpdatedSettings,
+      };
+      setSettings(updatedSettings)
+      httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/settings`, {
+        method: 'POST',
+        body: JSON.stringify(updatedSettings),
+      });
+  }
 
   return (
     <WixDesignSystemProvider features={{ newColorsBranding: true }}>
@@ -56,25 +68,28 @@ const Index: FC = () => {
                   />
                   <Card.Divider />
                   <Card.Content>
-                    <Box direction={"vertical"} width={"75%"}>
-                      <Text secondary>Minimum total order amount</Text>
-                      <NumberInput
-                          // todo: Get site currency
-                          prefix={<Input.Affix>$</Input.Affix>}
-                          min={0}
-                          value={settings.minSubtotal}
-                          onChange={async amount => {
-                            setSettings({ minSubtotal: amount || 0 })
-                            const res = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/settings`, {
-                              method: 'POST',
-                              body: JSON.stringify({
-                                minSubtotal: amount,
-                              }),
-                            });
-                            console.log(res)
-                          }}
-                      />
-                    </Box>
+                      <Limit label="Minimum total order amount" prefix="$"
+                             value={settings.minSubtotal}
+                             onChange={amount => partiallyUpdateSettings({minSubtotal: amount || undefined})}/>
+                      <Limit label="Maximum total order amount" prefix="$"
+                             value={settings.maxSubtotal}
+                             onChange={amount => partiallyUpdateSettings({ maxSubtotal: amount || undefined })}/>
+                  </Card.Content>
+                </Card>
+
+                <Card>
+                  <Card.Header
+                      title="Total Items Limit"
+                      subtitle="Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set."
+                  />
+                  <Card.Divider />
+                  <Card.Content>
+                      <Limit label="Minimum order amount (total items)" prefix="#"
+                             value={settings.minTotalItems}
+                             onChange={amount => partiallyUpdateSettings({ minTotalItems: amount || undefined })} />
+                      <Limit label="Minimum order amount (total items)" prefix="#"
+                             value={settings.maxTotalItems}
+                             onChange={amount => partiallyUpdateSettings({ maxTotalItems: amount || undefined })} />
                   </Card.Content>
                 </Card>
               </Cell>
