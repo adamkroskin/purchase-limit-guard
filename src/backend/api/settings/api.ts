@@ -22,12 +22,13 @@ export async function POST(req: Request) {
     await upsertDataToCollection({
       dataCollectionId: PURCHASE_RULES_COLLECTION_ID,
       item: {
+        _id: "SINGLE_ITEM_ID",
         data: settingsData,
       },
     });
 
     return new Response('Success');
   } catch (error) {
-    return new Response('Error');
+    return error;
   };
 };
