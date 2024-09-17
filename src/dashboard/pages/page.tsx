@@ -8,6 +8,8 @@ import {
   Layout,
   Loader,
   Page,
+  Text,
+  Input,
   NumberInput,
   WixDesignSystemProvider,
 } from '@wix/design-system';
@@ -42,22 +44,23 @@ const Index: FC = () => {
         <Page height='100vh'>
           <Page.Header
             title="Purchase Limit Guard"
-            subtitle="Enforce minimum purchase limits on cart and checkout"
-            actionsBar={
-              <Button onClick={() => console.log("button click")} > Some Button </Button >
-            }
+            subtitle="Improve the shopping experience with order limits on collections, product types and locations"
           />
           <Page.Content>
             <Layout>
-              <Cell span={6}>
+              <Cell span={12}>
                 <Card>
                   <Card.Header
-                    title="Configure your minimun purchase limit"
+                    title="Subtotal Limits"
+                    subtitle="Define the minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
                   />
                   <Card.Divider />
                   <Card.Content>
-                    <Box>
+                    <Box direction={"vertical"} width={"75%"}>
+                      <Text secondary>Minimum total order amount</Text>
                       <NumberInput
+                          // todo: Get site currency
+                          prefix={<Input.Affix>$</Input.Affix>}
                           min={0}
                           value={settings.minSubtotal}
                           onChange={async amount => {
