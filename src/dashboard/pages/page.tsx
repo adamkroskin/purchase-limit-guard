@@ -100,46 +100,11 @@ const Index: FC = () => {
                         <Layout>
                             <Cell span={12}>
                                 <Box direction={"vertical"} gap={"SP4"}>
-
-                                <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'subtotal'} settings={settings}/>
-                                <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'totalItems'} settings={settings}/>
-                                <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'orderWeight'} settings={settings}/>
+                                    <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'subtotal'} settings={settings}/>
+                                    <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'totalItems'} settings={settings}/>
+                                    <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'orderWeight'} settings={settings}/>
                                 </Box>
                             </Cell>
-                            {/*  <Cell span={12}>*/}
-                            {/*      <Card>*/}
-                            {/*    <Card.Header*/}
-                            {/*        title="Total Items Limit"*/}
-                            {/*        subtitle="Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set."*/}
-                            {/*    />*/}
-                            {/*<Card.Divider/>*/}
-                            {/*    <Card.Content>*/}
-                            {/*        <Limit label="Minimum order amount (total items)" prefix="#"*/}
-                            {/*               value={settings.minTotalItems}*/}
-                            {/* onChange={amount => partiallyUpdateSettings({minTotalItems: amount || undefined})}/>*/}
-                            {/*        <Limit label="Minimum order amount (total items)" prefix="#"*/}
-                            {/*               value={settings.maxTotalItems}*/}
-                            {/* onChange={amount => partiallyUpdateSettings({maxTotalItems: amount || undefined})}/>*/}
-                            {/*    </Card.Content>*/}
-                            {/*  </Card>*/}
-                            {/*  </Cell>*/}
-                            {/*  <Cell span={12}>*/}
-                            {/*      <Card>*/}
-                            {/*        <Card.Header*/}
-                            {/*            title="Weight Limit"*/}
-                            {/*            subtitle="Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set."*/}
-                            {/*        />*/}
-                            {/*<Card.Divider/>*/}
-                            {/*        <Card.Content>*/}
-                            {/*            <Limit label="Minimum order weight" prefix="KG"*/}
-                            {/*                   value={settings.minOrderWeight}*/}
-                            {/*     onChange={amount => partiallyUpdateSettings({minOrderWeight: amount || undefined})}/>*/}
-                            {/*            <Limit label="Maximum order weight" prefix="KG"*/}
-                            {/*                   value={settings.maxOrderWeight}*/}
-                            {/*     onChange={amount => partiallyUpdateSettings({maxOrderWeight: amount || undefined})}/>*/}
-                            {/*        </Card.Content>*/}
-                            {/*    </Card>*/}
-                            {/*</Cell>*/}
                         </Layout>
                     </Page.Content>
                 </Page>
