@@ -51,8 +51,7 @@ const Index: FC = () => {
             setSiteId(site.siteId);
         }
 
-        fetchAppInstance()
-        fetchSettings();
+        fetchAppInstance().then(fetchSettings)
     }, []);
 
 
