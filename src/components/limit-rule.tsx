@@ -1,6 +1,6 @@
 import {PurchaseRules, Severity} from "../types";
 import {Box, Card, Collapse, Dropdown, Input, Text, ToggleSwitch} from "@wix/design-system";
-import {LimitNumberInput} from "./limitNumberInput";
+import {LimitNumberInput} from "./limit-number-input";
 import React from "react";
 
 const severityOptions = [
