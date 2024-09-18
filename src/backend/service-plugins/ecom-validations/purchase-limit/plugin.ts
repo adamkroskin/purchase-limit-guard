@@ -64,11 +64,11 @@ validations.provideHandlers({
 })
 
 function calculateSeverity(rule: Rule, soruce?: validations.Source) {
-    if (soruce == Source.CART) {
+    if (soruce == validations.Source.CART) {
         return rule.cartSeverity == Severity.WARNING ? validations.Severity.WARNING : validations.Severity.ERROR
     }
 
-    if (soruce == Source.CHECKOUT) {
+    if (soruce == validations.Source.CHECKOUT) {
         return rule.checkoutSeverity == Severity.WARNING ? validations.Severity.WARNING : validations.Severity.ERROR
     }
 
