@@ -23,7 +23,6 @@ import {createClient, AuthenticationStrategy, AppStrategy, ApiKeyStrategy} from 
 import {appInstances} from "@wix/app-management";
 
 
-
 const Index: FC = () => {
     const [settings, setSettings] = useState<PurchaseRules>();
     const [isPremium, setIsPremium] = useState<boolean>(false);
@@ -55,6 +54,7 @@ const Index: FC = () => {
         fetchAppInstance()
         fetchSettings();
     }, []);
+
 
     const partiallyUpdateSettings = (partiallyUpdatedSettings: Partial<Settings>) => {
         const updatedSettings = {
@@ -100,9 +100,22 @@ const Index: FC = () => {
                         <Layout>
                             <Cell span={12}>
                                 <Box direction={"vertical"} gap={"SP4"}>
-                                    <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'subtotal'} settings={settings}/>
-                                    <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'totalItems'} settings={settings}/>
-                                    <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'orderWeight'} settings={settings}/>
+                                    <LimitRule
+                                    isPremium={false}
+                                    partiallyUpdateSettings={partiallyUpdateSettings}
+                                    ruleType={'subtotal'}
+                                    settings={settings}/>
+                                    <LimitRule
+                                    isPremium={false}
+                                    partiallyUpdateSettings={partiallyUpdateSettings}
+                                    ruleType={'totalItems'}
+                                    settings={settings}/>
+                                    <LimitRule
+                                    isPremium={false}
+                                    partiallyUpdateSettings={partiallyUpdateSettings}
+                                    ruleType={'orderWeight'}
+                                    settings={settings}
+                                />
                                 </Box>
                             </Cell>
                         </Layout>

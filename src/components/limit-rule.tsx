@@ -2,6 +2,7 @@ import {PurchaseRules, Severity} from "../types";
 import {Box, Card, Collapse, Dropdown, Input, Text, ToggleSwitch} from "@wix/design-system";
 import {LimitNumberInput} from "./limit-number-input";
 import React from "react";
+import {dashboard} from "@wix/dashboard";
 
 const severityOptions = [
     {id: Severity.WARNING, value: 'Show warning message'},
@@ -23,7 +24,8 @@ const rulesDescription = {
     },
 }
 
-export function LimitRule({settings, ruleType, partiallyUpdateSettings}: {
+export function LimitRule({settings, ruleType, partiallyUpdateSettings, isPremium}: {
+    isPremium: boolean,
     settings: PurchaseRules,
     ruleType: keyof PurchaseRules
     partiallyUpdateSettings: (partiallyUpdatedSettings: Partial<Settings>) => void;
@@ -35,12 +37,19 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings}: {
             subtitle={rulesDescription[ruleType].subtitle}
             suffix={
                 <ToggleSwitch
-                    onChange={() => partiallyUpdateSettings({
-                        [ruleType]: {
-                            ...settings[ruleType],
-                            active: !settings[ruleType]?.active
-                        } || undefined
-                    })}
+                    onChange={() => {
+                        const activeRules = Object.values(settings || {}).filter(item => item.active).length
+                        if (!isPremium && activeRules > 0 && !settings[ruleType]?.active) {
+                            dashboard.showToast({message: "UPGRADE", type: "error"})
+                        } else {
+                            partiallyUpdateSettings({
+                                [ruleType]: {
+                                    ...settings[ruleType],
+                                    active: !settings[ruleType]?.active
+                                } || undefined
+                            })
+                        }
+                    }}
                     size="medium"
                     checked={settings[ruleType]?.active}
                 />
@@ -52,19 +61,19 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings}: {
                 <LimitNumberInput label="Minimum total order amount" prefix="$"
                                   value={settings[ruleType]?.minValue}
                                   onChange={(amount) => partiallyUpdateSettings({
-                           [ruleType]: {
-                               ...settings[ruleType],
-                               minValue: amount
-                           } || undefined
-                       })}/>
+                                      [ruleType]: {
+                                          ...settings[ruleType],
+                                          minValue: amount
+                                      } || undefined
+                                  })}/>
                 <LimitNumberInput label="Maximum total order amount" prefix="$"
                                   value={settings[ruleType]?.maxValue}
                                   onChange={(amount) => partiallyUpdateSettings({
-                           [ruleType]: {
-                               ...settings[ruleType],
-                               maxValue: amount
-                           } || undefined
-                       })}/>
+                                      [ruleType]: {
+                                          ...settings[ruleType],
+                                          maxValue: amount
+                                      } || undefined
+                                  })}/>
 
                 <Box margin="SP2 0">
                     <Text size="medium" weight="bold">Set restriction on your cart & checkout</Text>
