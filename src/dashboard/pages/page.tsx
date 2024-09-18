@@ -92,7 +92,7 @@ const Index: FC = () => {
                                 })
                             }
                         }>
-                            Upgrade
+                            Upgrade the App
                         </Button>}
                     />
                     <Page.Content>
