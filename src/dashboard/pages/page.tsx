@@ -60,8 +60,8 @@ const Index: FC = () => {
           />
           <Page.Content>
             <Layout>
-              <Cell span={12}>
-                <Card>
+                <Cell span={12}>
+                    <Card>
                   <Card.Header
                     title="Subtotal Limits"
                     subtitle="Define the minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
@@ -76,8 +76,9 @@ const Index: FC = () => {
                              onChange={amount => partiallyUpdateSettings({ maxSubtotal: amount || undefined })}/>
                   </Card.Content>
                 </Card>
-
-                <Card>
+                </Cell>
+                <Cell span={12}>
+                    <Card>
                   <Card.Header
                       title="Total Items Limit"
                       subtitle="Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set."
@@ -92,8 +93,9 @@ const Index: FC = () => {
                              onChange={amount => partiallyUpdateSettings({ maxTotalItems: amount || undefined })} />
                   </Card.Content>
                 </Card>
-
-                  <Card>
+                </Cell>
+                <Cell span={12}>
+                    <Card>
                       <Card.Header
                           title="Weight Limit"
                           subtitle="Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set."
