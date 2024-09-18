@@ -14,7 +14,7 @@ import {
     NumberInput,
     WixDesignSystemProvider, Button,
 } from '@wix/design-system';
-import { APP_ID } from "../../backend/consts"
+import {APP_ID} from "../../backend/consts"
 import {PurchaseRules, Severity} from '../../types';
 import '@wix/design-system/styles.global.css';
 import {Limit} from "../../components/limit";
@@ -141,7 +141,7 @@ const Index: FC = () => {
                                                    })}/>
 
                                             <Box margin="SP2 0">
-                                            <Text size="medium" weight={"bold"}>Set restriction on you cart & checkout</Text>
+                                                <Text size="medium" weight={"bold"}>Set restriction on you cart & checkout</Text>
                                             </Box>
 
                                             <Text secondary>Cart Restrictions</Text>
@@ -168,7 +168,20 @@ const Index: FC = () => {
                                                 selectedId={settings.subtotal?.checkoutSeverity}
                                                 options={severityOptions}
                                             />
-                                            <Text secondary></Text>
+                                            <Text secondary>Write a message that clearly explains this requirements to
+                                                customers</Text>
+                                            <Input value={settings.subtotal?.message}
+                                                   onChange={event => {
+                                                       console.log(event.target.value)
+                                                       partiallyUpdateSettings({
+                                                           subtotal: {
+                                                               ...settings.subtotal,
+                                                               message: event.target.value
+                                                           }
+                                                       })
+                                                   }
+                                                   }
+                                            />
                                         </Card.Content>
                                     </Collapse>
                                 </Card>
