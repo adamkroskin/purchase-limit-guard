@@ -99,9 +99,12 @@ const Index: FC = () => {
                     <Page.Content>
                         <Layout>
                             <Cell span={12}>
+                                <Box direction={"vertical"} gap={"SP4"}>
+
                                 <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'subtotal'} settings={settings}/>
                                 <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'totalItems'} settings={settings}/>
                                 <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'orderWeight'} settings={settings}/>
+                                </Box>
                             </Cell>
                             {/*  <Cell span={12}>*/}
                             {/*      <Card>*/}
