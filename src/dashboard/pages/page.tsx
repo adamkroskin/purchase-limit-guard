@@ -17,16 +17,12 @@ import {
 import {APP_ID} from "../../backend/consts"
 import {PurchaseRules, Severity} from '../../types';
 import '@wix/design-system/styles.global.css';
-import {Limit} from "../../components/limit";
+import {LimitRule} from "../../components/limit-rule";
 import {dashboard} from "@wix/dashboard";
 import {createClient, AuthenticationStrategy, AppStrategy, ApiKeyStrategy} from '@wix/sdk';
 import {appInstances} from "@wix/app-management";
 
 
-const severityOptions = [
-    {id: Severity.WARNING, value: 'Show warning message'},
-    {id: Severity.ERROR, value: 'Show error message'},
-];
 
 const Index: FC = () => {
     const [settings, setSettings] = useState<PurchaseRules>();
@@ -103,88 +99,7 @@ const Index: FC = () => {
                     <Page.Content>
                         <Layout>
                             <Cell span={12}>
-                                <Card>
-                                    <Card.Header
-                                        title="Subtotal Limits"
-                                        subtitle="Define tsadfhe minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
-                                        suffix={
-                                            <ToggleSwitch
-                                                onChange={() => partiallyUpdateSettings({
-                                                    subtotal: {
-                                                        ...settings.subtotal,
-                                                        active: !settings.subtotal?.active
-                                                    } || undefined
-                                                })}
-                                                size="medium"
-                                                checked={settings.subtotal?.active}
-                                            />
-                                        }
-                                    />
-                                    <Collapse open={settings.subtotal?.active}>
-                                        <Card.Divider/>
-                                        <Card.Content>
-                                            <Limit label="Minimum total order amount" prefix="$"
-                                                   value={settings.subtotal?.minValue}
-                                                   onChange={amount => partiallyUpdateSettings({
-                                                       subtotal: {
-                                                           ...settings.subtotal,
-                                                           minValue: amount
-                                                       } || undefined
-                                                   })}/>
-                                            <Limit label="Maximum total order amount" prefix="$"
-                                                   value={settings.subtotal?.maxValue}
-                                                   onChange={amount => partiallyUpdateSettings({
-                                                       subtotal: {
-                                                           ...settings.subtotal,
-                                                           maxValue: amount
-                                                       } || undefined
-                                                   })}/>
-
-                                            <Box margin="SP2 0">
-                                                <Text size="medium" weight={"bold"}>Set restriction on you cart & checkout</Text>
-                                            </Box>
-
-                                            <Text secondary>Cart Restrictions</Text>
-                                            <Dropdown
-                                                placeholder="Select Cart Restrictions"
-                                                onSelect={option => partiallyUpdateSettings({
-                                                    subtotal: {
-                                                        ...settings.subtotal,
-                                                        cartSeverity: option.id
-                                                    } || undefined
-                                                })}
-                                                options={severityOptions}
-                                                selectedId={settings.subtotal?.cartSeverity}
-                                            />
-                                            <Text secondary>Checkout Restrictions:</Text>
-                                            <Dropdown
-                                                placeholder="Select Checkout Restrictions"
-                                                onSelect={option => partiallyUpdateSettings({
-                                                    subtotal: {
-                                                        ...settings.subtotal,
-                                                        checkoutSeverity: option.id
-                                                    } || undefined
-                                                })}
-                                                selectedId={settings.subtotal?.checkoutSeverity}
-                                                options={severityOptions}
-                                            />
-                                            <Text secondary>Write a message that clearly explains this requirements to
-                                                customers</Text>
-                                            <Input value={settings.subtotal?.message}
-                                                   onChange={event => {
-                                                       console.log(event.target.value)
-                                                       partiallyUpdateSettings({
-                                                           subtotal: {
-                                                               ...settings.subtotal,
-                                                               message: event.target.value
-                                                           }
-                                                       })
-                                                   }
-                                                   }
-                                            />
-                                        </Card.Content>
-                                    </Collapse>
-                                </Card>
+                                <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'subtotal'} settings={settings}/>
                             </Cell>
                             {/*  <Cell span={12}>*/}
                             {/*      <Card>*/}

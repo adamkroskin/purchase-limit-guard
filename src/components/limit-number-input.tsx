@@ -5,7 +5,7 @@ import {
     NumberInput,
 } from '@wix/design-system';
 
-export const Limit: React.FC<{
+export const LimitNumberInput: React.FC<{
     label: string,
     prefix: string,
     value?: number,
