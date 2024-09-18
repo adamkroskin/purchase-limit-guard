@@ -139,32 +139,36 @@ const Index: FC = () => {
                                                            maxValue: amount
                                                        } || undefined
                                                    })}/>
-                                            <Text size="medium" weight={"bold"}>Set restriction on you cart &
-                                                checkout</Text>
+
+                                            <Box margin="SP2 0">
+                                            <Text size="medium" weight={"bold"}>Set restriction on you cart & checkout</Text>
+                                            </Box>
+
                                             <Text secondary>Cart Restrictions</Text>
                                             <Dropdown
                                                 placeholder="Select Cart Restrictions"
-                                                onChange={option => partiallyUpdateSettings({
+                                                onSelect={option => partiallyUpdateSettings({
                                                     subtotal: {
                                                         ...settings.subtotal,
-                                                        cartSeverity: option
+                                                        cartSeverity: option.id
                                                     } || undefined
                                                 })}
                                                 options={severityOptions}
-                                                value={settings.subtotal?.cartSeverity}
+                                                selectedId={settings.subtotal?.cartSeverity}
                                             />
                                             <Text secondary>Checkout Restrictions:</Text>
                                             <Dropdown
                                                 placeholder="Select Checkout Restrictions"
-                                                onChange={option => partiallyUpdateSettings({
+                                                onSelect={option => partiallyUpdateSettings({
                                                     subtotal: {
                                                         ...settings.subtotal,
-                                                        checkoutSeverity: option
+                                                        checkoutSeverity: option.id
                                                     } || undefined
                                                 })}
-                                                value={settings.subtotal?.checkoutSeverity}
+                                                selectedId={settings.subtotal?.checkoutSeverity}
                                                 options={severityOptions}
                                             />
+                                            <Text secondary></Text>
                                         </Card.Content>
                                     </Collapse>
                                 </Card>
