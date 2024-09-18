@@ -78,6 +78,7 @@ async function getPurchaseRules() {
     const data = collection.items[0]?.data as PurchaseRules;
 
     return {
+        subtotal: data?.subtotal,
         minSubtotal: data.minSubtotal || 0,
         maxSubtotal: data.maxSubtotal || Number.MAX_SAFE_INTEGER,
         minTotalItems: data.minTotalItems || 0,

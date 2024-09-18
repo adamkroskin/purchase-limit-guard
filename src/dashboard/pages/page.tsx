@@ -1,6 +1,8 @@
 import React, {useEffect, useState, type FC} from 'react';
 import {httpClient} from '@wix/essentials';
 import {
+    Collapse,
+    ToggleSwitch, Dropdown,
     Box,
     Card,
     Cell,
@@ -12,13 +14,18 @@ import {
     NumberInput,
     WixDesignSystemProvider, Button,
 } from '@wix/design-system';
-import type {PurchaseRules} from '../../types';
+import {PurchaseRules, Severity} from '../../types';
 import '@wix/design-system/styles.global.css';
 import {Limit} from "../../components/limit";
 import {dashboard} from "@wix/dashboard";
 import {createClient, AuthenticationStrategy, AppStrategy, ApiKeyStrategy} from '@wix/sdk';
 import {appInstances} from "@wix/app-management";
 
+
+const severityOptions = [
+    {id: Severity.WARNING, value: 'Show warning message'},
+    {id: Severity.ERROR, value: 'Show error message'},
+];
 
 const Index: FC = () => {
     const [settings, setSettings] = useState<PurchaseRules>();
@@ -97,53 +104,103 @@ const Index: FC = () => {
                                 <Card>
                                     <Card.Header
                                         title="Subtotal Limits"
-                                        subtitle="Define the minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
+                                        subtitle="Define tsadfhe minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
+                                        suffix={
+                                            <ToggleSwitch
+                                                onChange={() => partiallyUpdateSettings({
+                                                    subtotal: {
+                                                        ...settings.subtotal,
+                                                        active: !settings.subtotal?.active
+                                                    } || undefined
+                                                })}
+                                                size="medium"
+                                                checked={settings.subtotal?.active}
+                                            />
+                                        }
                                     />
-                                    <Card.Divider/>
-                                    <Card.Content>
-                                        <Limit label="Minimum total order amount" prefix="$"
-                                               value={settings.minSubtotal}
-                                               onChange={amount => partiallyUpdateSettings({minSubtotal: amount || undefined})}/>
-                                        <Limit label="Maximum total order amount" prefix="$"
-                                               value={settings.maxSubtotal}
-                                               onChange={amount => partiallyUpdateSettings({maxSubtotal: amount || undefined})}/>
-                                    </Card.Content>
+                                    <Collapse open={settings.subtotal?.active}>
+                                        <Card.Divider/>
+                                        <Card.Content>
+                                            <Limit label="Minimum total order amount" prefix="$"
+                                                   value={settings.subtotal?.minValue}
+                                                   onChange={amount => partiallyUpdateSettings({
+                                                       subtotal: {
+                                                           ...settings.subtotal,
+                                                           minValue: amount
+                                                       } || undefined
+                                                   })}/>
+                                            <Limit label="Maximum total order amount" prefix="$"
+                                                   value={settings.subtotal?.maxValue}
+                                                   onChange={amount => partiallyUpdateSettings({
+                                                       subtotal: {
+                                                           ...settings.subtotal,
+                                                           maxValue: amount
+                                                       } || undefined
+                                                   })}/>
+                                            <Text size="medium" weight={"bold"}>Set restriction on you cart &
+                                                checkout</Text>
+                                            <Text secondary>Cart Restrictions</Text>
+                                            <Dropdown
+                                                placeholder="Select Cart Restrictions"
+                                                onChange={option => partiallyUpdateSettings({
+                                                    subtotal: {
+                                                        ...settings.subtotal,
+                                                        cartSeverity: option
+                                                    } || undefined
+                                                })}
+                                                options={severityOptions}
+                                                value={settings.subtotal?.cartSeverity}
+                                            />
+                                            <Text secondary>Checkout Restrictions:</Text>
+                                            <Dropdown
+                                                placeholder="Select Checkout Restrictions"
+                                                onChange={option => partiallyUpdateSettings({
+                                                    subtotal: {
+                                                        ...settings.subtotal,
+                                                        checkoutSeverity: option
+                                                    } || undefined
+                                                })}
+                                                value={settings.subtotal?.checkoutSeverity}
+                                                options={severityOptions}
+                                            />
+                                        </Card.Content>
+                                    </Collapse>
                                 </Card>
                             </Cell>
-                            <Cell span={12}>
-                                <Card>
-                                    <Card.Header
-                                        title="Total Items Limit"
-                                        subtitle="Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set."
-                                    />
-                                    <Card.Divider/>
-                                    <Card.Content>
-                                        <Limit label="Minimum order amount (total items)" prefix="#"
-                                               value={settings.minTotalItems}
-                                               onChange={amount => partiallyUpdateSettings({minTotalItems: amount || undefined})}/>
-                                        <Limit label="Minimum order amount (total items)" prefix="#"
-                                               value={settings.maxTotalItems}
-                                               onChange={amount => partiallyUpdateSettings({maxTotalItems: amount || undefined})}/>
-                                    </Card.Content>
-                                </Card>
-                            </Cell>
-                            <Cell span={12}>
-                                <Card>
-                                    <Card.Header
-                                        title="Weight Limit"
-                                        subtitle="Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set."
-                                    />
-                                    <Card.Divider/>
-                                    <Card.Content>
-                                        <Limit label="Minimum order weight" prefix="KG"
-                                               value={settings.minOrderWeight}
-                                               onChange={amount => partiallyUpdateSettings({minOrderWeight: amount || undefined})}/>
-                                        <Limit label="Maximum order weight" prefix="KG"
-                                               value={settings.maxOrderWeight}
-                                               onChange={amount => partiallyUpdateSettings({maxOrderWeight: amount || undefined})}/>
-                                    </Card.Content>
-                                </Card>
-                            </Cell>
+                            {/*  <Cell span={12}>*/}
+                            {/*      <Card>*/}
+                            {/*    <Card.Header*/}
+                            {/*        title="Total Items Limit"*/}
+                            {/*        subtitle="Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set."*/}
+                            {/*    />*/}
+                            {/*<Card.Divider/>*/}
+                            {/*    <Card.Content>*/}
+                            {/*        <Limit label="Minimum order amount (total items)" prefix="#"*/}
+                            {/*               value={settings.minTotalItems}*/}
+                            {/* onChange={amount => partiallyUpdateSettings({minTotalItems: amount || undefined})}/>*/}
+                            {/*        <Limit label="Minimum order amount (total items)" prefix="#"*/}
+                            {/*               value={settings.maxTotalItems}*/}
+                            {/* onChange={amount => partiallyUpdateSettings({maxTotalItems: amount || undefined})}/>*/}
+                            {/*    </Card.Content>*/}
+                            {/*  </Card>*/}
+                            {/*  </Cell>*/}
+                            {/*  <Cell span={12}>*/}
+                            {/*      <Card>*/}
+                            {/*        <Card.Header*/}
+                            {/*            title="Weight Limit"*/}
+                            {/*            subtitle="Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set."*/}
+                            {/*        />*/}
+                            {/*<Card.Divider/>*/}
+                            {/*        <Card.Content>*/}
+                            {/*            <Limit label="Minimum order weight" prefix="KG"*/}
+                            {/*                   value={settings.minOrderWeight}*/}
+                            {/*     onChange={amount => partiallyUpdateSettings({minOrderWeight: amount || undefined})}/>*/}
+                            {/*            <Limit label="Maximum order weight" prefix="KG"*/}
+                            {/*                   value={settings.maxOrderWeight}*/}
+                            {/*     onChange={amount => partiallyUpdateSettings({maxOrderWeight: amount || undefined})}/>*/}
+                            {/*        </Card.Content>*/}
+                            {/*    </Card>*/}
+                            {/*</Cell>*/}
                         </Layout>
                     </Page.Content>
                 </Page>

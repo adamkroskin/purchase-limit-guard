@@ -9,12 +9,13 @@ export async function GET(req: Request) {
 
     const settingsData = settingsCollection.items[0]?.data as PurchaseRules;
     const settings: PurchaseRules = {
-        minSubtotal: settingsData?.minSubtotal,
-        maxSubtotal: settingsData?.maxSubtotal,
-        minTotalItems: settingsData?.minTotalItems,
-        maxTotalItems: settingsData?.maxTotalItems,
-        minOrderWeight: settingsData?.minOrderWeight,
-        maxOrderWeight: settingsData?.maxOrderWeight
+        subtotal: settingsData?.subtotal,
+        // minSubtotal: settingsData?.minSubtotal,
+        // maxSubtotal: settingsData?.maxSubtotal,
+        // minTotalItems: settingsData?.minTotalItems,
+        // maxTotalItems: settingsData?.maxTotalItems,
+        // minOrderWeight: settingsData?.minOrderWeight,
+        // maxOrderWeight: settingsData?.maxOrderWeight
     };
 
     return new Response(JSON.stringify(settings));
