@@ -2,7 +2,7 @@ import {
     Box,
     Text,
     Input,
-    NumberInput,
+    NumberInput, FormField,
 } from '@wix/design-system';
 
 export const LimitNumberInput: React.FC<{
@@ -12,13 +12,15 @@ export const LimitNumberInput: React.FC<{
     onChange: (n: number) => void
 }> = (props) =>
 <Box direction={"vertical"} width={"75%"}>
-    <Text secondary>{props.label}</Text>
-    <NumberInput
-        prefix={<Input.Affix>{props.prefix}</Input.Affix>}
-        min={0}
-        value={props.value}
-        onChange={props.onChange}
-    />
+    <FormField label={props.label}>
+        <NumberInput
+            label={"adam"}
+            prefix={<Input.Affix>{props.prefix}</Input.Affix>}
+            min={0}
+            value={props.value}
+            onChange={props.onChange}
+        />
+    </FormField>
 </Box>
 
 
