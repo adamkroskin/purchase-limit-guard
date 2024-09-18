@@ -13,6 +13,8 @@ export async function GET(req: Request) {
         maxSubtotal: settingsData?.maxSubtotal,
         minTotalItems: settingsData?.minTotalItems,
         maxTotalItems: settingsData?.maxTotalItems,
+        minOrderWeight: settingsData?.minOrderWeight,
+        maxOrderWeight: settingsData?.maxOrderWeight
     };
 
     return new Response(JSON.stringify(settings));

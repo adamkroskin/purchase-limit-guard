@@ -92,6 +92,22 @@ const Index: FC = () => {
                              onChange={amount => partiallyUpdateSettings({ maxTotalItems: amount || undefined })} />
                   </Card.Content>
                 </Card>
+
+                  <Card>
+                      <Card.Header
+                          title="Weight Limit"
+                          subtitle="Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set."
+                      />
+                      <Card.Divider />
+                      <Card.Content>
+                          <Limit label="Minimum order weight" prefix="KG"
+                                 value={settings.minOrderWeight}
+                                 onChange={amount => partiallyUpdateSettings({ minOrderWeight: amount || undefined })} />
+                          <Limit label="Maximum order weight" prefix="KG"
+                                 value={settings.maxOrderWeight}
+                                 onChange={amount => partiallyUpdateSettings({ maxOrderWeight: amount || undefined })} />
+                      </Card.Content>
+                  </Card>
               </Cell>
             </Layout>
           </Page.Content>
