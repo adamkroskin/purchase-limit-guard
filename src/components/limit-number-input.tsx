@@ -11,7 +11,7 @@ export const LimitNumberInput: React.FC<{
     value?: number,
     onChange: (n: number) => void
 }> = (props) =>
-<Box direction={"vertical"} width={"75%"}>
+<Box direction={"vertical"}>
     <FormField label={props.label}>
         <NumberInput
             label={"adam"}
