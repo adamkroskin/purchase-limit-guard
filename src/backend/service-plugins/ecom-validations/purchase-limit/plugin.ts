@@ -6,15 +6,10 @@ import type {PurchaseRules} from "../../../../types";
 validations.provideHandlers({
     getValidationViolations: async ({request, metadata}): Promise<validations.GetValidationViolationsResponse> => {
         const rules = await getPurchaseRules();
-        const subtotal = parseInt(request?.validationInfo?.priceSummary?.subtotal?.amount || "0");
-        const totalItems = request?.validationInfo?.lineItems?.reduce((total, item) => {
-            return total + (item.quantity || 0);
-        }, 0) || 0;
-        const totalWeight = request?.validationInfo?.lineItems?.reduce((total, item) => {
-            return total + ((item.physicalProperties?.weight || 0) * (item.quantity || 0));
-        }, 0) || 0;
+        const subtotal = calculateSubTotal(request?.validationInfo)
+        const totalItems = calculateTotalItems(request.validationInfo)
+        const totalWeight = calculateTotalOrderWeight(request.validationInfo)
 
-        console.log("totalWeight", totalWeight);
         const validations = [
             {
                 predicate: () => {
@@ -53,6 +48,7 @@ validations.provideHandlers({
                 errorMessage: `The total order weight of items cannot be higher then ${rules.maxOrderWeight}`
             },
         ];
+
         const violations = validations
             .filter(({predicate}) => !predicate())
             .map(({errorMessage}) => createViolation(errorMessage));
@@ -60,6 +56,22 @@ validations.provideHandlers({
         return {violations: violations}
     }
 })
+
+function calculateSubTotal(validationInfo?: validations.ValidationInfo) {
+    return parseInt(validationInfo?.priceSummary?.subtotal?.amount || "0");
+}
+
+function calculateTotalOrderWeight(validationInfo?: validations.ValidationInfo) {
+    return validationInfo?.lineItems?.reduce((total, item) => {
+        return total + ((item.physicalProperties?.weight || 0) * (item.quantity || 0));
+    }, 0) || 0;
+}
+
+function calculateTotalItems(validationInfo?: validations.ValidationInfo) {
+    return validationInfo?.lineItems?.reduce((total, item) => {
+        return total + (item.quantity || 0);
+    }, 0) || 0;
+}
 
 async function getPurchaseRules() {
     const collection = await getDataFromCollection({dataCollectionId: PURCHASE_RULES_COLLECTION_ID});
