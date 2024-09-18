@@ -9,12 +9,9 @@ appInstances.onAppInstanceInstalled(() => {
     _id: PURCHASE_RULES_COLLECTION_ID,
     displayName: PURCHASE_RULES_COLLECTION_NAME,
     fields: [
-      { key: 'minSubtotal', type: collections.Type.NUMBER },
-      { key: 'maxSubtotal', type: collections.Type.NUMBER },
-      { key: 'minTotalItems', type: collections.Type.NUMBER },
-      { key: 'maxTotalItems', type: collections.Type.NUMBER },
-      { key: 'minOrderWeight', type: collections.Type.NUMBER },
-      { key: 'maxOrderWeight', type: collections.Type.NUMBER },
+      { key: 'subtotal', type: collections.Type.OBJECT },
+      { key: 'totalItems', type: collections.Type.OBJECT },
+      { key: 'orderWeight', type: collections.Type.NUMBER },
     ],
     permissions: {
       // Make sure to change the permissions according to the actual usage of your collection

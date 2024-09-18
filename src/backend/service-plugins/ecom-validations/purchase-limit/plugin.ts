@@ -13,39 +13,39 @@ validations.provideHandlers({
         const validations = [
             {
                 predicate: () => {
-                    return subtotal >= rules.minSubtotal
+                    return (rules.subtotal?.active || false) && subtotal >= (rules.subtotal?.minValue || 0)
                 },
-                errorMessage: `Your total purchase amount cannot be lower then ${rules.minSubtotal}`
+                errorMessage: rules.subtotal?.message
             },
             {
                 predicate: () => {
-                    return subtotal <= rules.maxSubtotal
+                    return (rules.subtotal?.active || false) && subtotal <= (rules.subtotal?.maxValue || Number.MAX_SAFE_INTEGER)
                 },
-                errorMessage: `Your total purchase amount cannot be higher then ${rules.maxSubtotal}`
+                errorMessage: rules.subtotal?.message
             },
             {
                 predicate: () => {
-                    return totalItems >= rules.minTotalItems
+                    return (rules.subtotal?.active || false) && totalItems >= (rules.totalItems?.minValue || 0)
                 },
-                errorMessage: `The total number of items cannot be lower then ${rules.minTotalItems}`
+                errorMessage: rules.totalItems?.message
             },
             {
                 predicate: () => {
-                    return totalItems <= rules.maxTotalItems
+                    return (rules.subtotal?.active || false) && totalItems <= (rules.totalItems?.maxValue || Number.MAX_SAFE_INTEGER)
                 },
-                errorMessage: `The total number of items cannot be higher then ${rules.maxTotalItems}`
+                errorMessage: rules.totalItems?.message
             },
             {
                 predicate: () => {
-                    return totalWeight >= rules.minOrderWeight
+                    return (rules.subtotal?.active || false) && totalWeight >= (rules.orderWeight?.minValue || 0)
                 },
-                errorMessage: `The total order weight of items cannot be lower then ${rules.minOrderWeight}`
+                errorMessage: rules.orderWeight?.message
             },
             {
                 predicate: () => {
-                    return totalWeight <= rules.maxOrderWeight
+                    return (rules.subtotal?.active || false) && totalWeight <= (rules.orderWeight?.maxValue || Number.MAX_SAFE_INTEGER)
                 },
-                errorMessage: `The total order weight of items cannot be higher then ${rules.maxOrderWeight}`
+                errorMessage: rules.orderWeight?.message
             },
         ];
 
@@ -78,13 +78,9 @@ async function getPurchaseRules() {
     const data = collection.items[0]?.data as PurchaseRules;
 
     return {
-        subtotal: data?.subtotal,
-        minSubtotal: data.minSubtotal || 0,
-        maxSubtotal: data.maxSubtotal || Number.MAX_SAFE_INTEGER,
-        minTotalItems: data.minTotalItems || 0,
-        maxTotalItems: data.maxTotalItems || Number.MAX_SAFE_INTEGER,
-        minOrderWeight: data.minOrderWeight || 0,
-        maxOrderWeight: data.maxOrderWeight || Number.MAX_SAFE_INTEGER,
+        subtotal: data?.subtotal || DEFAULT_RULE,
+        totalItems: data?.totalItems||DEFAULT_RULE,
+        orderWeight: data.orderWeight||DEFAULT_RULE,
     };
 }
 

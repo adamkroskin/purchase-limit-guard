@@ -1,5 +1,5 @@
 import {getDataFromCollection, upsertDataToCollection} from '../../database';
-import {PURCHASE_RULES_COLLECTION_ID} from '../../consts';
+import {DEFAULT_RULE, PURCHASE_RULES_COLLECTION_ID} from '../../consts';
 import type {PurchaseRules} from '../../../types';
 
 export async function GET(req: Request) {
@@ -9,13 +9,9 @@ export async function GET(req: Request) {
 
     const settingsData = settingsCollection.items[0]?.data as PurchaseRules;
     const settings: PurchaseRules = {
-        subtotal: settingsData?.subtotal,
-        // minSubtotal: settingsData?.minSubtotal,
-        // maxSubtotal: settingsData?.maxSubtotal,
-        // minTotalItems: settingsData?.minTotalItems,
-        // maxTotalItems: settingsData?.maxTotalItems,
-        // minOrderWeight: settingsData?.minOrderWeight,
-        // maxOrderWeight: settingsData?.maxOrderWeight
+        subtotal: settingsData?.subtotal || DEFAULT_RULE,
+        totalItems: settingsData?.totalItems || DEFAULT_RULE,
+        orderWeight: settingsData?.orderWeight || DEFAULT_RULE,
     };
 
     return new Response(JSON.stringify(settings));

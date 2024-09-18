@@ -1,7 +1,7 @@
 export type PurchaseRules = {
-    subtotal?: Rule
-    totalItems?: number
-    orderWeight?: Rule
+    subtotal: Rule
+    totalItems: Rule
+    orderWeight: Rule
 };
 
 
@@ -9,15 +9,9 @@ export enum Severity {
     WARNING = 1,
     ERROR = 2,
 }
-enum Type {
-    SUBTOTAL = 1,
-    TOTAL_ITEMS = 2,
-    ORDER_WEIGHT = 3
-}
 
-type Rule = {
-    type: Type;
-    active?: boolean;
+export type Rule = {
+    active: boolean;
     cartSeverity?: Severity
     checkoutSeverity?: Severity
     message?: string;
