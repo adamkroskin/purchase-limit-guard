@@ -2,7 +2,6 @@ import {validations} from '@wix/ecom/service-plugins/context';
 import {getDataFromCollection} from "../../../database";
 import {DEFAULT_RULE, PURCHASE_RULES_COLLECTION_ID} from "../../../consts";
 import {PurchaseRules, Rule, Severity} from "../../../../types";
-import {Source} from "@wix/ecom_validations/build/cjs/src/service-plugins-types";
 
 validations.provideHandlers({
     getValidationViolations: async ({request, metadata}): Promise<validations.GetValidationViolationsResponse> => {
@@ -64,7 +63,7 @@ validations.provideHandlers({
     }
 })
 
-function calculateSeverity(rule: Rule, soruce?: Source) {
+function calculateSeverity(rule: Rule, soruce?: validations.Source) {
     if (soruce == Source.CART) {
         return rule.cartSeverity == Severity.WARNING ? validations.Severity.WARNING : validations.Severity.ERROR
     }
