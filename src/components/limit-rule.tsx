@@ -43,7 +43,7 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings, isPremiu
                     onChange={() => {
                         const activeRules = Object.values(settings || {}).filter(item => item.active).length
                         if (!isPremium && activeRules > 0 && !settings[ruleType]?.active) {
-                            dashboard.showToast({message: "UPGRADE", type: "error"})
+                            dashboard.showToast({message: "Upgrade to set multiple restrictions and boost your control!", type: "error"})
                         } else {
                             partiallyUpdateSettings({
                                 [ruleType]: {
