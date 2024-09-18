@@ -100,6 +100,8 @@ const Index: FC = () => {
                         <Layout>
                             <Cell span={12}>
                                 <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'subtotal'} settings={settings}/>
+                                <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'totalItems'} settings={settings}/>
+                                <LimitRule partiallyUpdateSettings={partiallyUpdateSettings} ruleType={'orderWeight'} settings={settings}/>
                             </Cell>
                             {/*  <Cell span={12}>*/}
                             {/*      <Card>*/}
