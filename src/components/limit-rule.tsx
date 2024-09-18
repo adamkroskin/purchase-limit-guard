@@ -8,6 +8,21 @@ const severityOptions = [
     {id: Severity.ERROR, value: 'Show error message'},
 ];
 
+const rulesDescription = {
+    subtotal: {
+        title: "Subtotal Limits",
+        subtitle: "Define the minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
+    },
+    totalItems: {
+        title: "Total Item Limits",
+        subtitle: "Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set."
+    },
+    orderWeight: {
+        title: "Weight Limits",
+        subtitle: "Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set."
+    },
+}
+
 export function LimitRule({settings, ruleType, partiallyUpdateSettings}: {
     settings: PurchaseRules,
     ruleType: keyof PurchaseRules
@@ -16,8 +31,8 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings}: {
 
     return <Card>
         <Card.Header
-            title="Subtotal Limits"
-            subtitle="Define tsadfhe minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
+            title={rulesDescription[ruleType].title}
+            subtitle={rulesDescription[ruleType].subtitle}
             suffix={
                 <ToggleSwitch
                     onChange={() => partiallyUpdateSettings({
