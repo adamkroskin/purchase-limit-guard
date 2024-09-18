@@ -1,5 +1,5 @@
 import {getDataFromCollection, upsertDataToCollection} from '../../database';
-import {PURCHASE_RULES_COLLECTION_ID, DEFAULT_SETTING} from '../../consts';
+import {PURCHASE_RULES_COLLECTION_ID} from '../../consts';
 import type {PurchaseRules} from '../../../types';
 
 export async function GET(req: Request) {
@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     };
 
     return new Response(JSON.stringify(settings));
-};
+}
 
 export async function POST(req: Request) {
     const settingsData = await req.json() as PurchaseRules;
@@ -36,5 +36,4 @@ export async function POST(req: Request) {
     } catch (error) {
         return error;
     }
-    ;
-};
+}
