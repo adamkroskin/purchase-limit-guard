@@ -67,7 +67,7 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings}: {
                        })}/>
 
                 <Box margin="SP2 0">
-                    <Text size="medium" weight="bold">Set restriction on you cart & checkout</Text>
+                    <Text size="medium" weight="bold">Set restriction on your cart & checkout</Text>
                 </Box>
 
                 <Text secondary>Cart Restrictions</Text>
