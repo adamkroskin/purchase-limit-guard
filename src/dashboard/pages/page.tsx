@@ -14,6 +14,7 @@ import {
     NumberInput,
     WixDesignSystemProvider, Button,
 } from '@wix/design-system';
+import { APP_ID } from "../../backend/consts"
 import {PurchaseRules, Severity} from '../../types';
 import '@wix/design-system/styles.global.css';
 import {Limit} from "../../components/limit";
@@ -88,7 +89,8 @@ const Index: FC = () => {
                         subtitle="Improve the shopping experience with order limits on collections, product types and locations"
                         actionsBar={!isPremium && <Button skin="premium" onClick={
                             () => {
-                                window.open(`https://www.wix.com/apps/upgrade/42a22050-891c-405c-ab5d-3aecfd001b04?metaSiteId=${siteId}&pp_origin=manage_apps_bizmgr`)
+                                window.open(`https://www.wix.com/apps/upgrade/${APP_ID}?metaSiteId=${siteId}`)
+
                                 dashboard.showToast({
                                     message: "Refresh the page to apply purchased premium",
                                     timeout: "none"
