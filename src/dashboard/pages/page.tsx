@@ -101,17 +101,17 @@ const Index: FC = () => {
                             <Cell span={12}>
                                 <Box direction={"vertical"} gap={"SP4"}>
                                     <LimitRule
-                                    isPremium={false}
+                                    isPremium={isPremium}
                                     partiallyUpdateSettings={partiallyUpdateSettings}
                                     ruleType={'subtotal'}
                                     settings={settings}/>
                                     <LimitRule
-                                    isPremium={false}
+                                    isPremium={isPremium}
                                     partiallyUpdateSettings={partiallyUpdateSettings}
                                     ruleType={'totalItems'}
                                     settings={settings}/>
                                     <LimitRule
-                                    isPremium={false}
+                                    isPremium={isPremium}
                                     partiallyUpdateSettings={partiallyUpdateSettings}
                                     ruleType={'orderWeight'}
                                     settings={settings}
