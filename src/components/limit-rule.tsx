@@ -12,15 +12,18 @@ const severityOptions = [
 const rulesDescription = {
     subtotal: {
         title: "Subtotal Limits",
-        subtitle: "Define the minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range."
+        subtitle: "Define the minimum and maximum cart subtotal, excluding shipping and taxes, and verify that the customer's cart contents are always within the set price range.",
+        unit: "$"
     },
     totalItems: {
         title: "Total Item Limits",
-        subtitle: "Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set."
+        subtitle: "Define the minimum and maximum item quantity and verify that the customer's cumulative cart contents are always within the quantity range you set.",
+        unit: "#"
     },
     orderWeight: {
         title: "Weight Limits",
-        subtitle: "Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set."
+        subtitle: "Define the minimum and maximum weight requirements and verify that your customer's cart order weight is within the weight range you set.",
+        unit: "kg"
     },
 }
 
@@ -58,7 +61,7 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings, isPremiu
         <Collapse open={settings[ruleType]?.active}>
             <Card.Divider/>
             <Card.Content>
-                <LimitNumberInput label="Minimum total order amount" prefix="$"
+                <LimitNumberInput label="Minimum amount" prefix={rulesDescription[ruleType].unit}
                                   value={settings[ruleType]?.minValue}
                                   onChange={(amount) => partiallyUpdateSettings({
                                       [ruleType]: {
@@ -66,7 +69,7 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings, isPremiu
                                           minValue: amount
                                       } || undefined
                                   })}/>
-                <LimitNumberInput label="Maximum total order amount" prefix="$"
+                <LimitNumberInput label="Maximum amount" prefix={rulesDescription[ruleType].unit}
                                   value={settings[ruleType]?.maxValue}
                                   onChange={(amount) => partiallyUpdateSettings({
                                       [ruleType]: {
