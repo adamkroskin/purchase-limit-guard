@@ -40,15 +40,15 @@ const Index: FC = () => {
         // fetch directly from Wix, docs :
         // https://dev.wix.com/docs/sdk/backend-modules/app-management/app-instances/introduction
         const fetchAppInstance = async () => {
-            // const wixClient = createClient({
-            //     modules: {appInstances},
-            //     auth: dashboard.auth(),
-            //     host: dashboard.host(),
-            // });
-            //
-            // const {instance, site} = await wixClient.appInstances.getAppInstance();
-            // setIsPremium(!instance.isFree);
-            // setSiteId(site.siteId);
+            const wixClient = createClient({
+                modules: {appInstances},
+                auth: dashboard.auth(),
+                host: dashboard.host(),
+            });
+
+            const {instance, site} = await wixClient.appInstances.getAppInstance();
+            setIsPremium(!instance.isFree);
+            setSiteId(site.siteId);
         }
 
         fetchAppInstance().then(fetchSettings)
