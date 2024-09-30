@@ -91,7 +91,7 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings, isPremiu
                     <Box gap={"SP3"} direction={"vertical"}>
 
 
-                        <FormField label="Cart Restrictions: Prevent Checkout Until Conditions Are Met">
+                        <FormField label="Cart Restrictions: Prevent Proceeding To Checkout Until Conditions Are Met">
                             <Dropdown
                                 placeholder="Select Cart Restrictions"
                                 onSelect={(option) => partiallyUpdateSettings({
@@ -105,7 +105,7 @@ export function LimitRule({settings, ruleType, partiallyUpdateSettings, isPremiu
                             />
 
                         </FormField>
-                        <FormField label={"Checkout Restrictions: Prevent Checkout Until Conditions Are Met"}>
+                        <FormField label={"Checkout Restrictions: Prevent Completing Checkout Until Conditions Are Met"}>
                             <Dropdown
                                 placeholder="Select Checkout Restrictions"
                                 onSelect={(option) => partiallyUpdateSettings({
