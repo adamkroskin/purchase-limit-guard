@@ -13,42 +13,42 @@ validations.provideHandlers({
         const validations = [
             {
                 predicate: () => {
-                    return (rules.subtotal?.active) && subtotal >= (rules.subtotal?.minValue || 0)
+                    return (rules.subtotal?.active) && subtotal < (rules.subtotal?.minValue || 0)
                 },
                 severity: calculateSeverity(rules.subtotal, request.sourceInfo?.source),
                 errorMessage: rules.subtotal?.message
             },
             {
                 predicate: () => {
-                    return (rules.subtotal?.active) && subtotal <= (rules.subtotal?.maxValue || Number.MAX_SAFE_INTEGER)
+                    return (rules.subtotal?.active) && subtotal > (rules.subtotal?.maxValue || Number.MAX_SAFE_INTEGER)
                 },
                 severity: calculateSeverity(rules.subtotal, request.sourceInfo?.source),
                 errorMessage: rules.subtotal?.message
             },
             {
                 predicate: () => {
-                    return (rules.totalItems?.active) && totalItems >= (rules.totalItems?.minValue || 0)
+                    return (rules.totalItems?.active) && totalItems < (rules.totalItems?.minValue || 0)
                 },
                 severity: calculateSeverity(rules.totalItems, request.sourceInfo?.source),
                 errorMessage: rules.totalItems?.message
             },
             {
                 predicate: () => {
-                    return (rules.totalItems?.active) && totalItems <= (rules.totalItems?.maxValue || Number.MAX_SAFE_INTEGER)
+                    return (rules.totalItems?.active) && totalItems > (rules.totalItems?.maxValue || Number.MAX_SAFE_INTEGER)
                 },
                 severity: calculateSeverity(rules.totalItems, request.sourceInfo?.source),
                 errorMessage: rules.totalItems?.message
             },
             {
                 predicate: () => {
-                    return (rules.orderWeight?.active) && totalWeight >= (rules.orderWeight?.minValue || 0)
+                    return (rules.orderWeight?.active) && totalWeight < (rules.orderWeight?.minValue || 0)
                 },
                 severity: calculateSeverity(rules.orderWeight, request.sourceInfo?.source),
                 errorMessage: rules.orderWeight?.message
             },
             {
                 predicate: () => {
-                    return (rules.orderWeight?.active) && totalWeight <= (rules.orderWeight?.maxValue || Number.MAX_SAFE_INTEGER)
+                    return (rules.orderWeight?.active) && totalWeight > (rules.orderWeight?.maxValue || Number.MAX_SAFE_INTEGER)
                 },
                 severity: calculateSeverity(rules.orderWeight, request.sourceInfo?.source),
                 errorMessage: rules.orderWeight?.message
@@ -56,7 +56,7 @@ validations.provideHandlers({
         ];
 
         const violations = validations
-            .filter(({predicate}) => !predicate())
+            .filter(({predicate}) => predicate())
             .map(({severity, errorMessage}) => createViolation(severity, errorMessage));
 
         return {violations: violations}
@@ -64,13 +64,13 @@ validations.provideHandlers({
 })
 
 function calculateSeverity(rule: Rule, soruce?: validations.Source) {
-    // if (soruce === validations.Source.CART) {
-    //     return rule.cartSeverity === Severity.WARNING ? validations.Severity.WARNING : validations.Severity.ERROR
-    // }
-    //
-    // if (soruce === validations.Source.CHECKOUT) {
-    //     return rule.checkoutSeverity === Severity.WARNING ? validations.Severity.WARNING : validations.Severity.ERROR
-    // }
+    if (soruce === validations.Source.CART) {
+        return rule.cartSeverity === Severity.WARNING ? validations.Severity.WARNING : validations.Severity.ERROR
+    }
+
+    if (soruce === validations.Source.CHECKOUT) {
+        return rule.checkoutSeverity === Severity.WARNING ? validations.Severity.WARNING : validations.Severity.ERROR
+    }
 
     return validations.Severity.ERROR
 }
