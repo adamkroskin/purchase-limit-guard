@@ -9,9 +9,9 @@ export async function GET(req: Request) {
 
     const settingsData = settingsCollection.items[0]?.data as PurchaseRules;
     const settings: PurchaseRules = {
-        subtotal: settingsData?.subtotal || DEFAULT_RULE,
-        totalItems: settingsData?.totalItems || DEFAULT_RULE,
-        orderWeight: settingsData?.orderWeight || DEFAULT_RULE,
+        subtotal: settingsData?.subtotal,
+        totalItems: settingsData?.totalItems,
+        orderWeight: settingsData?.orderWeight,
     };
 
     return new Response(JSON.stringify(settings));

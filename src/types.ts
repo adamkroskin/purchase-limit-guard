@@ -11,7 +11,7 @@ export enum Severity {
 }
 
 export type Rule = {
-    active: boolean;
+    active?: boolean;
     cartSeverity?: Severity
     checkoutSeverity?: Severity
     message?: string;
